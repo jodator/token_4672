@@ -1,9 +1,29 @@
 // The 'token_4672' program.
 program token_4672.aleo {
-    transition main(public a: field, b: field) -> field {
-        // Do not use bitwise operation on fields to optimize execution time.
-        assert_eq((a - 11field) * (a - 12field), 0field);
-        let c: field = a + b;
-        return c;
+    record Token {
+        owner: address;
+        balance: u64;
+    }
+
+    transition mint (amount: u64 ) -> Token {
+        return Token {
+            owner: self.caller,
+            balance: amount,
+        };
+    }
+
+    transition transfer_private(receiver: address, amount: u64, input: Token) -> (Token, Token) {
+        let remaining: u64 = input.balance - amount;
+        let caller: Token = Token {
+            owner: self.caller,
+            balance: remaining,
+        };
+
+        let recipient: Token = Token {
+            owner: receiver,
+            balance: amount,
+        };
+
+        return (caller, recipient);
     }
 }
