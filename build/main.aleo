@@ -1,6 +1,6 @@
 program token_4672.aleo;
 
-record Token:
+record token:
     owner as address.private;
     balance as u64.private;
 
@@ -11,29 +11,29 @@ mapping balance:
 
 function mint:
     input r0 as u64.private;
-    cast self.caller r0 into r1 as Token.record;
-    output r1 as Token.record;
+    cast self.caller r0 into r1 as token.record;
+    output r1 as token.record;
 
 
 function transfer_private:
     input r0 as address.private;
     input r1 as u64.private;
-    input r2 as Token.record;
+    input r2 as token.record;
     sub r2.balance r1 into r3;
-    cast self.caller r3 into r4 as Token.record;
-    cast r0 r1 into r5 as Token.record;
-    output r4 as Token.record;
-    output r5 as Token.record;
+    cast self.caller r3 into r4 as token.record;
+    cast r0 r1 into r5 as token.record;
+    output r4 as token.record;
+    output r5 as token.record;
 
 
 function transfer_private_to_public:
     input r0 as address.private;
     input r1 as u64.private;
-    input r2 as Token.record;
+    input r2 as token.record;
     sub r2.balance r1 into r3;
-    cast self.caller r3 into r4 as Token.record;
+    cast self.caller r3 into r4 as token.record;
     async transfer_private_to_public r0 r1 into r5;
-    output r4 as Token.record;
+    output r4 as token.record;
     output r5 as token_4672.aleo/transfer_private_to_public.future;
 
 finalize transfer_private_to_public:
@@ -47,9 +47,9 @@ finalize transfer_private_to_public:
 function transfer_public_to_private:
     input r0 as address.private;
     input r1 as u64.private;
-    cast r0 r1 into r2 as Token.record;
+    cast r0 r1 into r2 as token.record;
     async transfer_public_to_private self.caller r1 into r3;
-    output r2 as Token.record;
+    output r2 as token.record;
     output r3 as token_4672.aleo/transfer_public_to_private.future;
 
 finalize transfer_public_to_private:
@@ -61,8 +61,8 @@ finalize transfer_public_to_private:
 
 
 function join:
-    input r0 as Token.record;
-    input r1 as Token.record;
+    input r0 as token.record;
+    input r1 as token.record;
     add r0.balance r1.balance into r2;
-    cast self.caller r2 into r3 as Token.record;
-    output r3 as Token.record;
+    cast self.caller r2 into r3 as token.record;
+    output r3 as token.record;
