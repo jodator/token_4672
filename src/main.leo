@@ -8,9 +8,9 @@ program token_4672.aleo {
         balance: u64;
     }
 
-    transition mint (amount: u64 ) -> token {
+    transition mint_private (receiver: address, amount: u64) -> token {
         return token {
-            owner: self.caller,
+            owner: receiver,
             balance: amount,
         };
     }
