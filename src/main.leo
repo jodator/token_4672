@@ -59,4 +59,11 @@ program token_4672.aleo {
 
         Mapping::set(balance, caller, prev - amount);
     }
+
+    transition join(input: Token, input2: Token) -> Token {
+        return Token {
+            owner: self.caller,
+            balance: input.balance + input2.balance,
+        };
+    }
 }
